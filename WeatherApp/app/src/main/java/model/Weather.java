@@ -13,5 +13,5 @@ public class Weather {
     public Wind wind = new Wind();
     public Snow snow = new Snow();
     public Clouds clouds = new Clouds();
-    
+
 }
