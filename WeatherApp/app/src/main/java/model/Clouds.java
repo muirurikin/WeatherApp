@@ -1,0 +1,17 @@
+package model;
+
+/**
+ * Created by alexona on 10/13/16.
+ */
+
+public class Clouds {
+    private int precipitation;
+
+    public int getPrecipitation() {
+        return precipitation;
+    }
+
+    public void setPrecipitation(int precipitation) {
+        this.precipitation = precipitation;
+    }
+}
