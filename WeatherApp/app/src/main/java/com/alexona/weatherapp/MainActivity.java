@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         sunset = (TextView) findViewById(R.id.setText);
         updated = (TextView) findViewById(R.id.updateText);
 
-        renderWeatherData("Spokane,US");
+        renderWeatherData("Nairobi,KE");
 
     }
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             weather = JSONWeatherParser.getWeather(data);
 
-            Log.v("Data: ", weather.place.getCity());
+            Log.v("Data: ", weather.currentCondition.getDescription());
 
 
             return weather;
@@ -75,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Weather weather) {
             super.onPostExecute(weather);
+
+            cityName.setText(weather.place.getCity() + "," + weather.place.getCountry());
+            temp.setText("" + weather.currentCondition.getTemperature() + "C");
+            humididty.setText("Humidity: " + weather.currentCondition.getHumidity() + "%");
+            pressure.setText("Pressure: " + weather.currentCondition.getPressure() + "hPa");
+            wind.setText("Wind: " + weather.wind.getSpeed() + "mps");
+            sunrise.setText("Sunrise: " + weather.place.getSunrise());
+            sunset.setText("Sunset: " + weather.place.getSunset());
+            updated.setText("Last Updated: " + weather.place.getLastupdate());
+            description.setText("Condition: " + weather.currentCondition.getCondition() + "(" +
+                    weather.currentCondition.getDescription() + ")");
         }
     }
 
