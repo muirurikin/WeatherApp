@@ -1,16 +1,20 @@
 package com.alexona.weatherapp;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.text.DateFormat;
 import android.icu.text.DecimalFormat;
 import android.net.http.HttpResponseCache;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +23,7 @@ import java.io.InputStream;
 import java.util.Date;
 
 import Util.Utils;
+import data.CityPreference;
 import data.JSONWeatherParser;
 import data.WeatherHttpClient;
 import model.Weather;
@@ -55,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
         sunset = (TextView) findViewById(R.id.setText);
         updated = (TextView) findViewById(R.id.updateText);
 
-        renderWeatherData("Nairobi,KE");
+        CityPreference cityPreference = new CityPreference(MainActivity.this);
+
+        renderWeatherData(cityPreference.getCity());
 
     }
 
@@ -158,6 +165,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void showInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Change City");
+
+        final EditText cityInput = new EditText(MainActivity.this);
+        cityInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        cityInput.setHint("Portland,US");
+        builder.setView(cityInput);
+        builder.setPositiveButton("Submit", newDialogInterface.onClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                CityPreference cityPreference = new CityPreference(MainActivity.this);
+                CityPreference.setCity(cityInput.getText().toString());
+
+                String newCity = cityPreference.getCity();
+
+                renderWeatherData(newCity);
+
+            }
+        });
+        builder.show();
+    }
+
 
 
 
@@ -176,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
         // No  inspection simplifiableIf Statement
         if (id == R.id.change_cityId) {
-            return true;
+            showInputDialog();
         }
 
         return super.onOptionsItemSelected(item);
