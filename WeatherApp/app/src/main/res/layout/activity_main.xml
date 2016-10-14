@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/cityText"
         android:textColor="#fff"
-        android:text="Nairobi,Kenya"
+        android:text="Spokane,US"
         android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:textStyle="bold"
