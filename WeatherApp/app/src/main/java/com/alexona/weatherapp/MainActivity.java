@@ -1,5 +1,6 @@
 package com.alexona.weatherapp;
 
+import android.graphics.Bitmap;
 import android.icu.text.DateFormat;
 import android.icu.text.DecimalFormat;
 import android.os.AsyncTask;
@@ -59,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         WeatherTask weatherTask = new WeatherTask();
         weatherTask.execute(new String[]{city + "&units=metric"});
 
+    }
+
+    private class DownloadImageAsyncTask extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            return null;
+        }
     }
 
     private class WeatherTask extends AsyncTask<String, Void, Weather> {

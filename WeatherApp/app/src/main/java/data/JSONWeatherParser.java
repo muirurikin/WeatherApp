@@ -51,7 +51,7 @@ public class JSONWeatherParser {
             weather.currentCondition.setMinTemp(Utils.getFloat("temp_min", mainObj));
             weather.currentCondition.setMaxTemp(Utils.getFloat("temp_max", mainObj));
             weather.currentCondition.setTemperature(Utils.getDouble("temp", mainObj));
-            
+
 
             JSONObject windObj = Utils.getObject("wind", jsonObject);
             weather.wind.setSpeed(Utils.getFloat("speed", windObj));
