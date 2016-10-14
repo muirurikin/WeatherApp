@@ -1,5 +1,7 @@
 package com.alexona.weatherapp;
 
+import android.icu.text.DateFormat;
+import android.icu.text.DecimalFormat;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Date;
 
 import data.JSONWeatherParser;
 import data.WeatherHttpClient;
@@ -76,14 +80,25 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Weather weather) {
             super.onPostExecute(weather);
 
+            DateFormat df = DateFormat.getTimeInstance();
+
+            String sunriseDate = df.format(new Date(weather.place.getSunrise()));
+            String sunsetDate = df.format(new Date(weather.place.getSunset()));
+            String updateDate = df.format(new Date(weather.place.getLastupdate()));
+
+
+            DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+            String tempFormat = decimalFormat.format(weather.currentCondition.getTemperature());
+
             cityName.setText(weather.place.getCity() + "," + weather.place.getCountry());
-            temp.setText("" + weather.currentCondition.getTemperature() + "C");
+            temp.setText("" + tempFormat + "°C");
             humididty.setText("Humidity: " + weather.currentCondition.getHumidity() + "%");
             pressure.setText("Pressure: " + weather.currentCondition.getPressure() + "hPa");
             wind.setText("Wind: " + weather.wind.getSpeed() + "mps");
-            sunrise.setText("Sunrise: " + weather.place.getSunrise());
-            sunset.setText("Sunset: " + weather.place.getSunset());
-            updated.setText("Last Updated: " + weather.place.getLastupdate());
+            sunrise.setText("Sunrise: " + sunriseDate);
+            sunset.setText("Sunset: " + sunsetDate);
+            updated.setText("Last Updated: " + updateDate);
             description.setText("Condition: " + weather.currentCondition.getCondition() + "(" +
                     weather.currentCondition.getDescription() + ")");
         }
