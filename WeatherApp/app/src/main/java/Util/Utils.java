@@ -26,6 +26,6 @@ public class Utils {
         return (float) jsonObject.getDouble(tagName);
     }
     public static int getInt(String tagName, JSONObject jsonObject) throws JSONException {
-        jsonObject.getInt(tagName);
+        return jsonObject.getInt(tagName);
     }
 }
